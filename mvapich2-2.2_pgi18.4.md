@@ -25,4 +25,18 @@ pgcc -ta=tesla:cuda9.1
 3. `./configure --prefix=<desired_directory>`
 4. `make -j<number_of_threads>`
 5. `make check`
-6. if `make check` passes all condition, `sudo make install`
+6. if `make check` passes all conditions, then `sudo make install`
+
+## Possible problems
+
+### `libtool` cannot find `pgcc` or `pgfortran` during make process
+
+Open the `libtool` file, then look for **pgcc** or **pgfortran** and add full path for them. Close the file and run `make` again.
+
+### mpifortran or mpicc link to some wrong version of library
+
+Add the right one to the `LD_LIBRARY_PATH` environment variable, for example:
+
+```sh
+export LD_LIBRARY_PATH=/opt/pgi/linux86-64/2018/cuda/9.1/lib64/:$LD_LIBRARY_PATH
+```
